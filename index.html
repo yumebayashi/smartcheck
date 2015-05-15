@@ -1,0 +1,100 @@
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<style type="text/css">
+.panel-body {
+    margin-top: 15px;
+}
+
+#result-wrap {
+    position: fixed;
+    top: 25%;
+    left: 0;
+    width: 100%;
+    height: 15%;
+    z-index: 999;
+    background-color: #FAFAFA;
+    vertical-align: bottom;
+    visibility: hidden;
+}
+
+.overlay-content {
+    border: none;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    top: 34%;
+    font-size: x-large;
+}
+</style>
+<script type="text/javascript">
+function execute() {
+    var data1 = document.getElementById("data1").value;
+    var data2 = document.getElementById("data2").value;
+    var type = document.getElementById("type").value;
+
+    xhr = new XMLHttpRequest();
+    xhr.open('POST', "https://script.google.com/macros/s/AKfycbwlRKCm_ewmSl4fa-T2m9ToHmORg2Gs2nHesYUCZBuGyAZyXLM5/exec", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var a = document.getElementById('result-wrap');
+            a.style.visibility = "visible";
+            var b = document.getElementById('result');
+            b.innerText = xhr.responseText;
+        };
+    }
+    xhr.send("data1=" + data1 + "&data2=" + data2 + "&type=" + type);
+
+}
+
+function makeHidden() {
+    var a = document.getElementById('result-wrap');
+    a.style.visibility = "hidden";
+}
+</script>
+
+<body>
+    <header>
+        <div class="wrap">
+            <div class="header-wrapper">
+                <h1>Smart <span>Checker</span></h1>
+                <p>その値を誰かが以前に登録したことがあるかどうかをチェックするサービスです。サーバーに送られた情報はすべて暗号化しております。</p>
+            </div>
+            <!-- /.header-wrapper -->
+        </div>
+        <!-- /.wrap -->
+    </header>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">値1:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="data1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">値2:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="data2">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">タイプ:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="type">
+                        <option value="check">確認</option>
+                        <option value="register">登録</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button onclick="execute()" class="btn btn-default">実行</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="result-wrap" onclick="makeHidden()">
+        <p class="overlay-content" id="result"></p>
+    </div>
+</body>
