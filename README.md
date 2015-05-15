@@ -1,3 +1,3 @@
 # smartcheck
 
-http://yumebayashi.github.io/alive-monitoring 
+http://yumebayashi.github.io/smartcheck
