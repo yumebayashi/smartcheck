@@ -29,8 +29,8 @@
 </style>
 <script type="text/javascript">
 function execute() {
-    var data1 = document.getElementById("data1").value;
-    var data2 = document.getElementById("data2").value;
+    var data1 = encodeURI(document.getElementById("data1").value);
+    var data2 = encodeURI(document.getElementById("data2").value);
     var type = document.getElementById("type").value;
 
     xhr = new XMLHttpRequest();
